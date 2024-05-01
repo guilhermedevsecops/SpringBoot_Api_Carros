@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CarrosApplication<start>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.guilhermedevsecops.start.CarrosApplication",
+            "projectName": "start",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

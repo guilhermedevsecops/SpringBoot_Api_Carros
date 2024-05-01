@@ -1,0 +1,15 @@
+# Configurações Banco de Dados
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Configurações do Hibernate
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=none
+
+# Configuração de logging para exibir consultas SQL
+logging.level.org.hibernate.SQL=debug
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n
