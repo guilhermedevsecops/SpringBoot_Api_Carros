@@ -1,61 +1,78 @@
 package com.guilhermedevsecops.start.domain;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import com.guilhermedevsecops.start.domain.dto.CarroDTO;
 
 @Service
 public class CarroService {
     @Autowired
     private CarroRepository rep;
 
-    public Iterable<Carro> getCarros(){
-        return rep.findAll();
-    }
-
-    public Optional<Carro> getCarroById(Long id) {
-        return rep.findById(id);
-    }
-
-    public Iterable<Carro> getCarroTipo(String tipo) {
+    public List<CarroDTO> getCarros(){
+        List<Carro> carros = rep.findAll();
+        List<CarroDTO> list = carros.stream()
+                                    .map(CarroDTO::create)
+                                    .collect(Collectors.toList());
         
-        return rep.findByTipo(tipo);
+        return list;
     }
 
-    public Carro save(Carro carros) {
-        return rep.save(carros);
+    public Optional<CarroDTO> getCarroById(Long id) {
+       return rep.findById(id).map(CarroDTO::create);
     }
 
-    public Carro update(Carro carro, Long id) {
+    public List<CarroDTO> getCarroTipo(String tipo) {
+        
+        return rep.findByTipo(tipo).stream()
+                                   .map(CarroDTO::create)
+                                   .collect(Collectors.toList());
+    }
+
+    public CarroDTO inserir(Carro carros) {
+        Assert.isNull(carros.getId(), "Não foi possivel inserir registro");
+
+        return CarroDTO.create(rep.save(carros));
+    }
+
+    public CarroDTO update(Carro carro, Long id) {
         Assert.notNull(id, "Registro não encontrado");
 
         //buscar no banco de dados
-        Optional<Carro> optional = getCarroById(id);
+        Optional<Carro> optional = rep.findById(id);
+
+
         if(optional.isPresent()){
             Carro db = optional.get();
             db.setNome(carro.getNome());
             db.setTipo(carro.getTipo());
             rep.save(db);
-            return db;
+            
+            return CarroDTO.create(db);
 
 
         }else{
-            throw new RuntimeException("Não foi possivel encontrar o registro");
+            return null;
         }
 
         
     }
 
-    public String delete(Long id) {
-        Optional<Carro> carro = getCarroById(id);
+    public Boolean delete(Long id) {
+        Optional<Carro> carro = rep.findById(id);
         if(carro.isPresent()){
             rep.deleteById(id);
-            return "Carro excluido";
+            return true;
         }
         else{
-            return "Carro não existe";
+            return false;
         }
        
     }
