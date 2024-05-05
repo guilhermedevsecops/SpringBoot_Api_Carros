@@ -29,23 +29,23 @@ Exemplo de trecho de código no arquivo application.properties:
 properties
 
 # Configurações Banco de Dados
-
-\`\`\`properties
+```
 spring.datasource.url=jdbc:mysql://localhost:3306/seubanco
 spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
 spring.security.user.name=senha_para_acessar_api
 spring.security.user.password=senha_para_acessar_ap
-\`\`\`
+```
+
 
 ## Buildar e executar o programa
 
 Primeiramente, deve ser efetuado o build do programa para ser utilizado em um arquivo JAR. Para isso, execute os seguintes comandos:
 
-\`\`\`bash
+```
 mvn clean install
 java -jar target/start-0.0.1-SNAPSHOT.jar
-\`\`\`
+```
 
 ### Autor
 
