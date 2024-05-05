@@ -31,7 +31,9 @@ properties
 # Configurações Banco de Dados
 ```spring.datasource.url=jdbc:mysql://localhost:3306/seubanco
 spring.datasource.username=seu_usuario
-spring.datasource.password=sua_senha```
+spring.datasource.password=sua_senha
+spring.security.user.name=senha_para_acessar_api
+spring.security.user.password=senha_para_acessar_api```
 
 Autor
 

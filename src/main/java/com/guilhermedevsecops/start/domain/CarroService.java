@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.guilhermedevsecops.start.domain.dto.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -25,8 +25,10 @@ public class CarroService {
         return list;
     }
 
-    public Optional<CarroDTO> getCarroById(Long id) {
-       return rep.findById(id).map(CarroDTO::create);
+    public CarroDTO getCarroById(Long id) {
+        Optional<Carro> carro = rep.findById(id);
+       return carro.map(CarroDTO::create)
+                   .orElseThrow(() -> new ObjectNotFoundException("Carro Não encontrado"));
     }
 
     public List<CarroDTO> getCarroTipo(String tipo) {
@@ -37,8 +39,6 @@ public class CarroService {
     }
 
     public CarroDTO inserir(Carro carros) {
-        Assert.isNull(carros.getId(), "Não foi possivel inserir registro");
-
         return CarroDTO.create(rep.save(carros));
     }
 
@@ -65,16 +65,8 @@ public class CarroService {
         
     }
 
-    public Boolean delete(Long id) {
-        Optional<Carro> carro = rep.findById(id);
-        if(carro.isPresent()){
+    public void delete(Long id) {
             rep.deleteById(id);
-            return true;
-        }
-        else{
-            return false;
-        }
-       
     }
     
 }
