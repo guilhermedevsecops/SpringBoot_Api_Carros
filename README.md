@@ -35,6 +35,16 @@ spring.datasource.password=sua_senha
 spring.security.user.name=senha_para_acessar_api
 spring.security.user.password=senha_para_acessar_api```
 
+
+ 
+## Buildar e excutar o programa
+
+    Primeiramente deve ser efetuado o build o programa para ser utilzado em jar
+    Para isso execute os seguintes comandos
+
+``` mvn clean install 
+    java -jar target/start-0.0.1-SNAPSHOT.jar ```
+
 Autor
 
-    Guilherme
+    Guilherme Henrique S. J.
